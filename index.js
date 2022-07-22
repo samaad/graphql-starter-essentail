@@ -1,6 +1,7 @@
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import schema from "./schema";
+import { resolvers } from "./resolvers";
 const app = express();
 
 const PORT = process.env.PORT || 8082;
@@ -9,17 +10,7 @@ app.get("/", (req, res) => {
   res.send("Graphql is amazing");
 });
 
-const root = {
-  product: () => {
-    return {
-      id: 277673172,
-      name: "widget",
-      description: "Beautiful widget to use in your garden",
-      price: 34.99,
-      soldout: false,
-    };
-  },
-};
+const root = resolvers;
 
 app.use(
   "/graphql",
